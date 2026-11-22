@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b0a09">
+<title>Confuso · Carta</title>
+<meta name="description" content="Confuso, Madrid. Carta de cócteles.">
+<link rel="preload" href="fonts/PlayfairDisplay-regular.ttf" as="font" type="font/ttf" crossorigin>
+<style>
+@font-face{font-family:"Pf";src:url("fonts/PlayfairDisplay-regular.ttf") format("truetype");font-display:swap}
+@font-face{font-family:"Pf";font-style:italic;src:url("fonts/PlayfairDisplay-italic.ttf") format("truetype");font-display:swap}
+@font-face{font-family:"Ms";src:url("fonts/Montserrat-regular.ttf") format("truetype");font-display:swap}
+@font-face{font-family:"Ms";font-weight:700;src:url("fonts/Montserrat-bold.ttf") format("truetype");font-display:swap}
+:root{--paper:#DAD3C7;--ink:#131110;--soft:#3D3832;--line:#8F877A;--night:#0b0a09}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--night);color:var(--paper);font-family:"Pf",Georgia,serif;overflow-x:hidden}
+.cap{font-family:"Ms",Arial,sans-serif;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+a{color:inherit;text-decoration:none}
+
+/* entrada */
+header.bar .mini{font-size:11px}
+html.bloq,html.bloq body{overflow:hidden;height:100%}
+#pre{position:fixed;inset:0;z-index:50;pointer-events:auto}
+#pre .tl{position:absolute;top:0;bottom:0;width:50.5%;transition:transform 1.5s cubic-bezier(.7,0,.2,1);
+  background:repeating-linear-gradient(90deg,#0e0a0a 0,#1c1312 22px,#120c0c 46px,#231716 70px,#0d0909 96px);box-shadow:inset 0 -120px 160px rgba(0,0,0,.6)}
+#pre .tl.i{left:0}#pre .tl.d{right:0}
+#pre.abre .tl.i{transform:translateX(-102%)}#pre.abre .tl.d{transform:translateX(102%)}
+#pre .ct{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--paper);transition:opacity .6s ease}
+#pre.abre .ct{opacity:0}
+#pre .wm{font-size:clamp(36px,10vw,104px);letter-spacing:.34em;margin-right:-.34em;line-height:1;display:flex}
+#pre .wm span{opacity:0;transform:translateY(18px);filter:blur(6px);transition:opacity .7s ease,transform .7s ease,filter .7s ease}
+#pre.letras .wm span{opacity:1;transform:none;filter:none}
+#pre svg{width:min(78vw,640px);height:22px;margin:22px 0 18px;overflow:visible}
+#pre svg .hilo{fill:none;stroke:var(--paper);stroke-width:1.4;stroke-dasharray:9 7;opacity:.9}
+#pre svg .m{fill:var(--paper)}
+#pre .sub{font-style:italic;font-size:clamp(15px,2.2vw,20px);opacity:0;transition:opacity .8s ease}
+#pre.letras .sub{opacity:.85}
+#pre .salta{position:absolute;bottom:26px;font-size:10px;opacity:.55}
+
+/* barra */
+header.bar{position:fixed;top:0;left:0;right:0;z-index:20;display:flex;justify-content:space-between;align-items:center;padding:18px 22px;mix-blend-mode:difference;color:#fff}
+header.bar .logo{font-size:18px;letter-spacing:.32em}
+header.bar button{font:inherit;background:none;border:1px solid #fff;color:#fff;padding:7px 12px;cursor:pointer;font-family:"Ms",Arial,sans-serif;font-weight:700;font-size:11px;letter-spacing:.14em;text-transform:uppercase}
+
+/* portada */
+.hero{position:relative;height:100svh;min-height:560px;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;padding:0 22px 9vh}
+.hero video,.pase .fondo video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hero .velo{position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,10,9,.35),rgba(11,10,9,.15) 40%,rgba(11,10,9,.85))}
+.hero h1{text-shadow:0 2px 24px rgba(0,0,0,.5);position:relative;font-weight:400;font-size:clamp(54px,15vw,210px);line-height:.9;letter-spacing:.12em}
+.hero p{position:relative;margin-top:18px;font-size:clamp(17px,2.4vw,24px);font-style:italic}
+.hero .baja{position:relative;margin-top:34px;font-size:11px;display:flex;align-items:center;gap:12px}
+.hero .baja i{display:block;width:1px;height:42px;background:var(--paper);animation:baja 2.2s ease-in-out infinite;transform-origin:top}
+@keyframes baja{0%{transform:scaleY(0)}50%{transform:scaleY(1)}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* índice */
+.indice{background:var(--paper);color:var(--ink);padding:80px 22px 90px}
+.indice .k{font-size:11px;color:var(--soft);margin-bottom:22px}
+.indice a{display:flex;align-items:baseline;gap:18px;border-top:1px solid var(--line);padding:16px 0 14px;transition:padding-left .35s ease}
+.indice a:last-child{border-bottom:1px solid var(--line)}
+.indice a:hover{padding-left:14px}
+.indice .num{font-size:11px;color:var(--soft);min-width:44px}
+.indice .t{font-size:clamp(34px,7vw,92px);line-height:1}
+.indice .ab{margin-left:auto;font-size:10px;color:var(--soft);text-align:right}
+
+/* pases */
+.pase{position:relative}
+.pase .fondo{position:sticky;top:0;height:100svh;overflow:hidden;z-index:0;background:#000}
+.pase .fondo::before{content:'';position:absolute;inset:-40px;background:var(--poster) center/cover no-repeat;filter:blur(28px) brightness(.55);transform:scale(1.1)}
+@media (max-aspect-ratio:1/1){.pase .fondo video.h{inset:auto;left:0;top:50%;height:70svh;transform:translateY(-50%);object-fit:cover}}
+.pase .fondo .velo{position:absolute;inset:0;background:rgba(11,10,9,.55)}
+.pase .capa{position:relative;z-index:1;margin-top:-100svh}
+.pase .cab{text-shadow:0 2px 18px rgba(0,0,0,.6);height:100svh;display:flex;flex-direction:column;justify-content:center;padding:0 22px}
+.pase .cab .cap{font-size:12px}
+.pase .cab h2{font-weight:400;font-style:italic;font-size:clamp(54px,13vw,180px);line-height:.95;margin-top:10px}
+.pase .cab .ab{margin-top:16px;font-size:11px}
+.ck{min-height:92svh;display:flex;align-items:center;justify-content:center;padding:6vh 16px}
+.card{width:min(560px,100%);background:rgba(218,211,199,.93);color:var(--ink);padding:30px 26px 26px;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+      opacity:0;transform:translateY(60px);transition:opacity .9s ease,transform .9s cubic-bezier(.2,.7,.1,1)}
+.card.ve{opacity:1;transform:none}
+.card .no{font-size:11px;color:var(--soft)}
+.card h3{font-weight:400;font-size:clamp(46px,9vw,72px);line-height:1;margin-top:6px}
+.card .tx{font-size:19px;line-height:1.45;margin-top:16px}
+.card .ing{font-size:11.5px;line-height:1.75;margin-top:16px}
+.card .gar{font-size:17px;margin-top:12px}
+.card .gar i{color:var(--soft)}
+.card .al{font-size:16px;font-style:italic;color:var(--soft);margin-top:4px}
+
+footer{background:var(--paper);color:var(--ink);padding:70px 22px 60px;text-align:center}
+footer .wm{font-size:clamp(30px,7vw,64px);letter-spacing:.38em;margin-right:-.38em}
+footer p{margin-top:20px;font-style:italic;font-size:16px;color:var(--soft)}
+footer .cap{margin-top:18px;font-size:10px;color:var(--soft)}
+@media (min-width:900px){.ck{justify-content:flex-end;padding-right:8vw}.ck:nth-child(even){justify-content:flex-start;padding-left:8vw}}
+@media (prefers-reduced-motion:reduce){.card{opacity:1;transform:none;transition:none}.hero .baja i{animation:none}}
+</style>
+</head>
+<body>
+<div id="pre"><div class="tl i"></div><div class="tl d"></div><div class="ct"><div class="wm" id="prewm"></div><svg viewBox="0 0 640 22" preserveAspectRatio="none"><defs><mask id="mk"><rect id="mr" x="0" y="0" width="0" height="22" fill="#fff"/></mask></defs><path class="hilo" mask="url(#mk)" d="M0 11 C 80 2, 160 20, 240 11 S 400 2, 480 11 S 600 20, 640 11"/><circle class="m" id="aguja" cx="0" cy="11" r="2.6"/></svg><div class="sub" id="presub"></div><div class="cap salta">Toca para entrar</div></div></div>
+<header class="bar"><a class="logo" href="#top">CONFUSO</a><a class="cap mini" href="#carta">La carta</a></header>
+<main id="top">
+<section class="hero">
+<video id="hv" muted playsinline loop autoplay preload="auto" poster="video/lino.jpg" src="video/lino.mp4"></video>
+<div class="velo"></div>
+<h1>CONFUSO</h1><p id="sub"></p><div class="baja cap"><i></i><span id="baja"></span></div>
+</section>
+<nav class="indice" id="carta"><div class="cap k" id="kidx"></div><div id="indice"></div></nav>
+<div id="pases"></div>
+</main>
+<footer><div class="wm">CONFUSO</div><p id="legal"></p><div class="cap">Madrid</div></footer>
+<script>window.CARTA=[{"num": "I", "id": "gasa", "video": "gasa", "tit": {"es": "Gasa", "en": "Gauze"}, "abv": {"es": "0 % – 5 % ABV (Alcohol free / Light)", "en": "0% – 5% ABV (Alcohol free / Light)"}, "cocteles": [{"n": "12", "nombre": "Ilusión", "texto": {"es": "En costura, la ilusión es un tul tan fino que en un vestido parece piel. Transparente como el tul.", "en": "In dressmaking, illusion is a tulle so fine that on a dress it looks like skin. Transparent as tulle."}, "ing": {"es": "Vino fino · agua de tomate · lima · especias", "en": "Fino sherry · tomato water · lime · spices"}, "garnish": {"es": "Tomate cherry encurtido", "en": "Pickled cherry tomato"}, "alg": {"es": "Alérgenos: apio, sulfitos", "en": "Allergens: celery, sulphites"}}, {"n": "08", "nombre": "Tul", "texto": {"es": "Tela fina y transparente de los velos y los tutús. Su nombre viene de Tulle, una ciudad de Francia. Ligero como un velo.", "en": "A fine sheer fabric for veils and tutus, named after Tulle, a town in France. Light as a veil."}, "ing": {"es": "Aperitivo floral sin alcohol · vermut blanco · lima · soda de pomelo rosa", "en": "Alcohol-free floral aperitif · white vermouth · lime · pink grapefruit soda"}, "garnish": {"es": "Perfume floral", "en": "Floral mist"}, "alg": {"es": "Alérgenos: sulfitos", "en": "Allergens: sulphites"}}, {"n": "04", "nombre": "Muselina", "texto": {"es": "Tela de algodón muy fina y ligera. Su nombre viene de Mosul, en Irak, y la más famosa se tejía a mano en Daca. Ligera como el aire.", "en": "A very fine and light cotton cloth. Its name comes from Mosul, in Iraq, and the finest was handwoven in Dhaka. Light as air."}, "ing": {"es": "Destilado botánico sin alcohol · albahaca · lima · agave", "en": "Alcohol-free botanical spirit · basil · lime · agave"}, "garnish": {"es": "Shiso", "en": "Shiso"}, "alg": {"es": "Sin alérgenos declarados", "en": "No declared allergens"}}]}, {"num": "II", "id": "lino", "video": "lino", "tit": {"es": "Lino", "en": "Linen"}, "abv": {"es": "5 % – 12 % ABV (Low-ABV)", "en": "5% – 12% ABV (Low-ABV)"}, "cocteles": [{"n": "11", "nombre": "Golilla", "texto": {"es": "Cuello blanco y liso que Felipe IV impuso en Madrid en 1623 al prohibir los cuellos de lujo. Sobrio y recto como él.", "en": "A plain white collar imposed by Philip IV in Madrid in 1623, when he banned luxurious collars. Sober and upright, like it."}, "ing": {"es": "Manzanilla · vermut seco · bitter de naranja", "en": "Manzanilla sherry · dry vermouth · orange bitters"}, "garnish": {"es": "Piel de naranja", "en": "Orange peel"}, "alg": {"es": "Alérgenos: sulfitos", "en": "Allergens: sulphites"}}, {"n": "07", "nombre": "Holanda", "texto": {"es": "Lino fino de las mejores camisas. Se llama así porque llegaba de Holanda, igual que la ginebra. Fresco como una camisa recién planchada.", "en": "The fine linen of the best shirts, named after Holland, where it came from, just like gin. Fresh as a newly pressed shirt."}, "ing": {"es": "Ginebra · pimienta de Sichuan · lima · ginger beer", "en": "Gin · Sichuan pepper · lime · ginger beer"}, "garnish": {"es": "Jengibre y menta", "en": "Ginger and mint"}, "alg": {"es": "Sin alérgenos declarados", "en": "No declared allergens"}}, {"n": "03", "nombre": "Guayabera", "texto": {"es": "Camisa ligera de lino o algodón pensada para el calor. Cuba, México y Filipinas se disputan su origen. Fresca como ella.", "en": "A light linen or cotton shirt made for the heat, claimed by Cuba, Mexico and the Philippines. Fresh, like it."}, "ing": {"es": "Vodka de vainilla · maracuyá · lima · almendra · espuma de cava", "en": "Vanilla vodka · passion fruit · lime · almond · cava foam"}, "garnish": {"es": "Corona de espuma de cava", "en": "Crown of cava foam"}, "alg": {"es": "Alérgenos: huevo, frutos de cáscara, sulfitos", "en": "Allergens: egg, tree nuts, sulphites"}}]}, {"num": "III", "id": "lana", "video": "lana", "tit": {"es": "Lana", "en": "Wool"}, "abv": {"es": "12 % – 18 % ABV (Medium-ABV)", "en": "12% – 18% ABV (Medium-ABV)"}, "cocteles": [{"n": "10", "nombre": "Merino", "texto": {"es": "Oveja española de la lana más fina de Europa. Durante siglos, España prohibió sacarla del reino. Suave como su lana.", "en": "A Spanish sheep with the finest wool in Europe. For centuries, Spain banned taking it out of the kingdom. Soft as its wool."}, "ing": {"es": "Vodka de vainilla · amaretto · manzana · fresa · limón · bitter de chocolate", "en": "Vanilla vodka · amaretto · apple · strawberry · lemon · chocolate bitters"}, "garnish": {"es": "Fresa fresca o deshidratada", "en": "Fresh or dried strawberry"}, "alg": {"es": "Alérgenos: leche, frutos de cáscara", "en": "Allergens: milk, tree nuts"}}, {"n": "06", "nombre": "Sarape", "texto": {"es": "Manta de lana mexicana de colores vivos. Las más famosas se tejían en Saltillo, en el norte de México. Cálido como un sarape.", "en": "A brightly coloured Mexican wool wrap. The most famous were woven in Saltillo, in northern Mexico. Warm as a sarape."}, "ing": {"es": "Mezcal · licor de chile ancho · jengibre · lima", "en": "Mezcal · ancho chilli liqueur · ginger · lime"}, "garnish": {"es": "Borde de Tajín y piel de lima", "en": "Tajín rim and lime peel"}, "alg": {"es": "Sin alérgenos declarados", "en": "No declared allergens"}}, {"n": "02", "nombre": "Tweed", "texto": {"es": "Paño de lana grueso y cálido de Escocia, con el nombre del río Tweed. Abriga como una chaqueta de tweed.", "en": "A thick and warm Scottish wool cloth that bears the name of the River Tweed. It warms like a tweed jacket."}, "ing": {"es": "Bourbon · licor de café · café ristretto · cacao · espuma de mascarpone", "en": "Bourbon · coffee liqueur · ristretto · cocoa · mascarpone foam"}, "garnish": {"es": "Cacao amargo y canela", "en": "Bitter cocoa and cinnamon"}, "alg": {"es": "Alérgenos: leche, huevo", "en": "Allergens: milk, egg"}}]}, {"num": "IV", "id": "cuero", "video": "cuero", "tit": {"es": "Cuero", "en": "Leather"}, "abv": {"es": "Más de 18 % ABV (High-ABV)", "en": "Over 18% ABV (High-ABV)"}, "cocteles": [{"n": "09", "nombre": "Napa", "texto": {"es": "Piel muy suave creada hacia 1875 en Napa, California, para hacer guantes. Suave como un guante.", "en": "A very soft leather created around 1875 in Napa, California, for gloves. Smooth as a glove."}, "ing": {"es": "Tequila blanco · limón · crema de cassis · soda", "en": "Blanco tequila · lemon · crème de cassis · soda"}, "garnish": {"es": "Velo de cassis", "en": "Veil of cassis"}, "alg": {"es": "Sin alérgenos declarados", "en": "No declared allergens"}}, {"n": "05", "nombre": "Charol", "texto": {"es": "Cuero lacado y brillante. La palabra viene del nombre chino de la laca, a través del portugués. Pulido como un zapato de charol.", "en": "Charol is Spanish for patent leather. The word comes from the Chinese name for lacquer, through Portuguese. Polished like a patent shoe."}, "ing": {"es": "Cachaça · ron blanco overproof · marrasquino · lima · pomelo rosa", "en": "Cachaça · overproof white rum · maraschino · lime · pink grapefruit"}, "garnish": {"es": "Cereza al marrasquino y piel de lima", "en": "Maraschino cherry and lime peel"}, "alg": {"es": "Sin alérgenos declarados", "en": "No declared allergens"}}, {"n": "01", "nombre": "Cordobán", "texto": {"es": "Cuero fino curtido en Córdoba, el más apreciado de la Europa medieval. Oscuro y profundo como el cuero.", "en": "Fine leather tanned in Córdoba, the most prized in medieval Europe. Dark and deep, like leather."}, "ing": {"es": "Ron añejo · amontillado · panela · cacao · tonka · bitter de chocolate", "en": "Aged rum · amontillado sherry · panela · cocoa · tonka · chocolate bitters"}, "garnish": {"es": "Piel de naranja", "en": "Orange peel"}, "alg": {"es": "Alérgenos: sulfitos", "en": "Allergens: sulphites"}}]}, {"num": "V", "id": "extra", "video": "terciopelo", "tit": {"es": "Terciopelo y brocado", "en": "Velvet & Brocade"}, "abv": {"es": "", "en": ""}, "cocteles": [{"n": "13", "nombre": "Velours", "texto": {"es": "Terciopelo en francés, del latín villus, vello. Hubo leyes que decidían quién podía vestirlo. Redondo y suave como el terciopelo.", "en": "French for velvet, from the Latin villus, down. Laws once decided who could wear it. Round and smooth as velvet."}, "ing": {"es": "Ron · baya rue · limón negro · panela · tonka", "en": "Rum · rue berry · black lemon · panela · tonka"}, "garnish": {"es": "Cuchara con gastrique de panela y limón negro", "en": "Spoon of panela and black lemon gastrique"}, "alg": {"es": "Alérgenos: leche, sulfitos", "en": "Allergens: milk, sulphites"}}, {"n": "14", "nombre": "Brocart", "texto": {"es": "Brocado en francés, la seda tejida con hilo de oro de las cortes. Rico y ornamentado como el brocado.", "en": "French for brocade, the silk woven with gold thread worn at royal courts. Rich and ornate, like brocade."}, "ing": {"es": "Vermut rosado · bitter italiano · ginebra · cacao blanco · avellana · amontillado · bitter de cacao", "en": "Rosé vermouth · Italian bitter · gin · white cacao liqueur · hazelnut · amontillado sherry · cacao bitters"}, "garnish": {"es": "Cuchara con glaseado de Campari y naranja", "en": "Spoon of Campari and orange glaze"}, "alg": {"es": "Alérgenos: frutos de cáscara, sulfitos", "en": "Allergens: tree nuts, sulphites"}}]}];window.UI={"es": {"sub": "Catorce cócteles en cinco pases", "pase": "Pase", "bajar": "Desliza", "indice": "La carta", "legal": "Si tiene alguna alergia o intolerancia alimentaria, consulte a nuestro equipo antes de pedir.", "lang": "English"}, "en": {"sub": "Fourteen cocktails in five rounds", "pase": "Round", "bajar": "Scroll", "indice": "The menu", "legal": "If you have any food allergy or intolerance, please ask our team before ordering.", "lang": "Español"}};</script>
+<script>
+(function(){
+var D=window.CARTA, UI=window.UI, lang='es';
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function pinta(){
+  var u=UI[lang]; document.documentElement.lang=lang;
+  document.getElementById('sub').textContent=u.sub;
+  document.getElementById('baja').textContent=u.bajar;
+  document.getElementById('kidx').textContent=u.indice;
+  document.getElementById('legal').textContent=u.legal;
+  var idx='', ps='';
+  D.forEach(function(p){
+    idx+='<a href="#'+p.id+'"><span class="cap num">'+u.pase+' '+p.num+'</span><span class="t">'+esc(p.tit[lang])+'</span><span class="cap ab">'+esc(p.abv[lang])+'</span></a>';
+    var cs=p.cocteles.map(function(c){
+      return '<div class="ck"><article class="card"><span class="cap no">N°'+c.n+'</span><h3>'+esc(c.nombre)+'</h3>'+
+      '<p class="tx">'+esc(c.texto[lang])+'</p><p class="cap ing">'+esc(c.ing[lang])+'</p>'+
+      '<p class="gar"><i>Garnish:</i> '+esc(c.garnish[lang])+'</p><p class="al">'+esc(c.alg[lang])+'</p></article></div>';
+    }).join('');
+    ps+='<section class="pase" id="'+p.id+'"><div class="fondo" style="--poster:url(video/'+p.video+'.jpg)"><video class="'+(p.video==='cuero'?'v':'h')+'" muted playsinline loop preload="none" poster="video/'+p.video+'.jpg" data-src="video/'+p.video+'.mp4"></video><div class="velo"></div></div>'+
+        '<div class="capa"><div class="cab"><span class="cap">'+u.pase+' '+p.num+'</span><h2>'+esc(p.tit[lang])+'</h2><span class="cap ab">'+esc(p.abv[lang])+'</span></div>'+cs+'</div></section>';
+  });
+  document.getElementById('indice').innerHTML=idx;
+  document.getElementById('pases').innerHTML=ps;
+  observa();
+}
+var io1,io2;
+function observa(){
+  if(io1) io1.disconnect(); if(io2) io2.disconnect();
+  io1=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting) e.target.classList.add('ve')})},{threshold:.25});
+  document.querySelectorAll('.card').forEach(function(c){io1.observe(c)});
+  io2=new IntersectionObserver(function(es){es.forEach(function(e){
+    var v=e.target.querySelector('video'); if(!v) return;
+    if(e.isIntersecting){ if(!v.src) v.src=v.dataset.src; var pr=v.play(); if(pr&&pr.catch) pr.catch(function(){}); }
+    else v.pause();
+  })},{threshold:0});
+  document.querySelectorAll('.pase').forEach(function(s){io2.observe(s)});
+}
+pinta();
+var hv=document.getElementById('hv'); var hp=hv.play(); if(hp&&hp.catch) hp.catch(function(){});
+/* entrada: un hilo cose la pantalla, aparece el nombre letra a letra y se abre el telón */
+var pre=document.getElementById('pre'), wm=document.getElementById('prewm'), H=document.documentElement;
+H.classList.add('bloq'); window.scrollTo(0,0);
+document.getElementById('presub').textContent=UI[lang].sub;
+'CONFUSO'.split('').forEach(function(c,i){var e=document.createElement('span');e.textContent=c;e.style.transitionDelay=(i*0.11)+'s';wm.appendChild(e)});
+var path=pre.querySelector('.hilo'), L=path.getTotalLength(), mr=document.getElementById('mr'), ag=document.getElementById('aguja'), t0=null, dur=1700, fin=false;
+function cose(ts){ if(!t0) t0=ts; var k=Math.min(1,(ts-t0)/dur), e=1-Math.pow(1-k,3), pt=path.getPointAtLength(L*e);
+  mr.setAttribute('width',pt.x+2); ag.setAttribute('cx',pt.x); ag.setAttribute('cy',pt.y);
+  if(k<1) requestAnimationFrame(cose); else ag.style.opacity=0; }
+requestAnimationFrame(cose);
+var a=setTimeout(function(){pre.classList.add('letras')},700);
+var b=setTimeout(abre,3500);
+function abre(){ if(fin) return; fin=true; clearTimeout(a); clearTimeout(b); pre.classList.add('letras'); pre.classList.add('abre');
+  setTimeout(function(){ pre.style.display='none'; H.classList.remove('bloq'); }, 1500); }
+pre.addEventListener('click',abre);
+if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches) abre();
+})();
+</script>
+</body>
+</html>
