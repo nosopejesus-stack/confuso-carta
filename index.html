@@ -48,6 +48,8 @@ header.bar .logo{font-size:18px;letter-spacing:.3em}
 /* portada */
 .hero{position:relative;height:100svh;min-height:600px;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;padding:0 var(--m) 10vh}
 .hero video,.pase .fondo video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+video{pointer-events:none}
+video::-webkit-media-controls,video::-webkit-media-controls-panel,video::-webkit-media-controls-play-button,video::-webkit-media-controls-start-playback-button,video::-webkit-media-controls-overlay-play-button{display:none!important;-webkit-appearance:none;opacity:0}
 .fill{position:absolute;inset:-60px;background:center/cover no-repeat;filter:blur(34px) brightness(.45);transform:translateZ(0)}
 .hero .scrim{position:absolute;inset:0;background:linear-gradient(rgba(11,10,9,0) 25%,rgba(11,10,9,.78) 60%,rgba(11,10,9,.95))}
 .hero h1{position:relative;font-weight:400;font-size:clamp(58px,15vw,200px);line-height:.92;letter-spacing:.1em}
@@ -94,7 +96,7 @@ footer .ciudad{margin-top:30px;font-size:15px;color:var(--soft)}
 <header class="bar"><span class="logo">CONFUSO</span></header>
 <main id="top">
 <section class="hero">
-<div class="fill" style="background-image:url(video/portada.jpg)"></div><video id="hv" muted playsinline loop autoplay preload="auto" poster="video/portada.jpg" src="video/portada.mp4" aria-hidden="true"></video>
+<div class="fill" style="background-image:url(video/portada.jpg)"></div><video id="hv" muted playsinline webkit-playsinline loop autoplay disablepictureinpicture disableremoteplayback preload="auto" poster="video/portada.jpg" src="video/portada.mp4" aria-hidden="true"></video>
 <div class="scrim"></div>
 <h1>CONFUSO</h1><p class="que">Carta de cócteles. Catorce cócteles en cinco pases, cada uno con el nombre de una tela.</p>
 <div class="sans baja"><i></i>Desliza para ver la carta</div>
@@ -113,7 +115,7 @@ D.forEach(function(p){
     return '<div class="ck"><article class="card"><h3 class="rv">'+esc(c.nombre)+'</h3><p class="tx rv">'+esc(c.texto)+'</p>'+
     '<p class="sans ing rv">'+esc(c.ing)+'</p><div class="rv"><p class="gar"><i>Garnish:</i> '+esc(c.garnish)+'</p><p class="al">'+esc(c.alg)+'</p></div></article></div>';
   }).join('');
-  ps+='<section class="pase" id="'+p.id+'" aria-labelledby="t-'+p.id+'"><div class="fondo"><div class="fill" style="background-image:url(video/'+p.video+'.jpg)"></div><video muted playsinline loop autoplay preload="metadata" poster="video/'+p.video+'.jpg" data-src="video/'+p.video+'.mp4" aria-hidden="true"></video><div class="scrim"></div><div class="velo"></div></div>'+
+  ps+='<section class="pase" id="'+p.id+'" aria-labelledby="t-'+p.id+'"><div class="fondo"><div class="fill" style="background-image:url(video/'+p.video+'.jpg)"></div><video muted playsinline webkit-playsinline loop autoplay disablepictureinpicture disableremoteplayback preload="metadata" poster="video/'+p.video+'.jpg" data-src="video/'+p.video+'.mp4" aria-hidden="true"></video><div class="scrim"></div><div class="velo"></div></div>'+
       '<div class="capa"><div class="cab"><span class="sans pn">Pase '+p.num+'</span><h2 id="t-'+p.id+'">'+esc(p.tit)+'</h2>'+(p.abv?'<span class="sans ab">'+esc(p.abv)+'</span>':'')+'</div>'+cs+'</div></section>';
 });
 document.getElementById('pases').innerHTML=ps;
@@ -134,6 +136,15 @@ var io3=new IntersectionObserver(function(es){es.forEach(function(e){
 document.querySelectorAll('.pase .cab').forEach(function(c){io3.observe(c)});
 
 var hv=document.getElementById('hv'); var hp=hv.play(); if(hp&&hp.catch) hp.catch(function(){});
+/* que los vídeos en pantalla no se queden nunca parados (p. ej. si el móvil bloquea el arranque hasta el primer toque) */
+function enPantalla(v){var r=v.getBoundingClientRect();return r.bottom>0&&r.top<innerHeight;}
+function sigue(){document.querySelectorAll('video').forEach(function(v){
+  if(!v.getAttribute('src')&&v.dataset.src&&enPantalla(v)){v.muted=true;v.src=v.dataset.src;}
+  if(v.getAttribute('src')&&v.paused&&enPantalla(v)){v.muted=true;var p=v.play();if(p&&p.catch)p.catch(function(){});}
+});}
+['touchstart','touchend','scroll','click','visibilitychange'].forEach(function(ev){window.addEventListener(ev,sigue,{passive:true});});
+setInterval(sigue,1500);
+document.querySelectorAll('video').forEach(function(v){v.addEventListener('pause',function(){if(enPantalla(v)&&!document.hidden)setTimeout(sigue,200);});});
 
 /* entrada: un hilo cose la pantalla, aparece el nombre y se abre el telón */
 var pre=document.getElementById('pre');
